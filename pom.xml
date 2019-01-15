@@ -16,7 +16,7 @@
 
 		<mule.version>3.9.1</mule.version>
 		<uid>Tmcelrath</uid>
-		<pid></pid>
+		<pwd></pwd>
 		<mule.tools.version>1.7</mule.tools.version>
 		<derby.version>10.14.2.0</derby.version>
 	</properties>
@@ -73,7 +73,7 @@
         <deploymentType>cloudhub</deploymentType>
         <muleVersion>${mule.version}</muleVersion>
         <username>${uid}</username>
-        <password>${pid}</password>
+        <password>${pwd}</password>
 	    <workerType>Micro</workerType>
         <redeploy>true</redeploy>
         <environment>Sandbox</environment>
