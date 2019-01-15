@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns:dw="http://www.mulesoft.org/schema/mule/ee/dw"
+<mule xmlns:jbossts="http://www.mulesoft.org/schema/mule/jbossts" xmlns:dw="http://www.mulesoft.org/schema/mule/ee/dw"
 	xmlns:db="http://www.mulesoft.org/schema/mule/db" xmlns:json="http://www.mulesoft.org/schema/mule/json"
 	xmlns:jms="http://www.mulesoft.org/schema/mule/jms" xmlns:http="http://www.mulesoft.org/schema/mule/http"
 	xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns="http://www.mulesoft.org/schema/mule/core"
@@ -13,7 +13,8 @@ http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/m
 http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee/dw/current/dw.xsd
 http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
 http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/current/mule-json.xsd
-http://www.mulesoft.org/schema/mule/jms http://www.mulesoft.org/schema/mule/jms/current/mule-jms.xsd">
+http://www.mulesoft.org/schema/mule/jms http://www.mulesoft.org/schema/mule/jms/current/mule-jms.xsd
+http://www.mulesoft.org/schema/mule/jbossts http://www.mulesoft.org/schema/mule/jbossts/current/mule-jbossts.xsd">
 	<http:listener-config name="HTTP_Listener_Configuration"
 		host="0.0.0.0" port="18081" doc:name="HTTP Listener Configuration" />
 	<spring:beans>
@@ -41,12 +42,15 @@ http://www.mulesoft.org/schema/mule/jms http://www.mulesoft.org/schema/mule/jms/
 ---
 payload]]></dw:set-payload>
 		</dw:transform-message>
-        <set-property propertyName="#['Content-Type']" value="#['application/json']" doc:name="Property"/>
+        <set-property propertyName="#['Content-Type']" value="#['application/json']" doc:name="Content type update"/>
+        <jms:outbound-endpoint queue="flights" connector-ref="Active_MQ" doc:name="JMS">
+            <xa-transaction action="NONE"/>
+        </jms:outbound-endpoint>
 
 	</flow>
 	<flow name="maven-projectFlow">
-		<jms:inbound-endpoint queue="flights"
-			connector-ref="Active_MQ" doc:name="JMS" />
+        <jms:inbound-endpoint queue="flights" connector-ref="Active_MQ" doc:name="JMS"/>
+
 		<logger message="#[payload]" level="INFO" doc:name="Log - INFO" />
 	</flow>
 </mule>
