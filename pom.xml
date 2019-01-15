@@ -14,7 +14,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-		<mule.version>3.8.4</mule.version>
+		<mule.version>3.9.1</mule.version>
 		<uid>Tmcelrath</uid>
 		<pid></pid>
 		<mule.tools.version>1.7</mule.tools.version>
@@ -74,7 +74,7 @@
         <muleVersion>${mule.version}</muleVersion>
         <username>${uid}</username>
         <password>${pid}</password>
-	      <workerType>Micro</workerType>
+	    <workerType>Micro</workerType>
         <redeploy>true</redeploy>
         <environment>Sandbox</environment>
     </configuration>
